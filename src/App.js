@@ -3,6 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from 'react-bootstrap/Alert'
+//eslint-disable-next-line no-unused-vars
 import Apps from './Apps.css'
 
 
