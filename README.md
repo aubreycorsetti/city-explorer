@@ -19,15 +19,15 @@
 
 ## Credit and Collaborations
 
-Name of feature: ________________________________
+Name of feature: city explorer
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 3 hours
 
-Start time: _____
+Start time: 2:3pm
 
-Finish time: _____
+Finish time: 8:30pm
 
-Actual time needed to complete: _____
+Actual time needed to complete: 6 hours
 
 ### Partner- Jason
 
