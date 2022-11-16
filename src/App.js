@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from 'react-bootstrap/Alert'
 //eslint-disable-next-line no-unused-vars
 import Apps from './Apps.css'
+import Weather from './Weather.js';
 
 
 
@@ -16,6 +17,7 @@ class App extends React.Component {
     this.state = {
       city: '',
       cityData: {},
+      weatherData: [],
       isError: false,
       errorMessage: ''
     }
@@ -38,7 +40,7 @@ class App extends React.Component {
       this.setState({
         cityData: locationInfo.data[0],
         isError: false
-      });
+      }, this.handleWeather);
 
      
     }
@@ -53,27 +55,42 @@ class App extends React.Component {
 
   handleWeather = async () => {
     let url = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
-    let cityData = await axios.get(url);
-    console.log(cityData.data)
+    let weatherData = await axios.get(url);
+    console.log(weatherData.data)
+
+    this.setState({
+      weatherData: weatherData.data
+    })
+    
   }
 
 
   render() {
+    //console.log(this.state.weatherData);
+
+    let weatherDisplay = this.state.weatherData.map(weatherData => {
+      console.log(weatherData);
+      return <Weather
+      date = {weatherData.date}
+      description = {weatherData.description}
+      />
+    });
 
     let display = '';
     if(this.state.isError) {
       display=<p>Oops! There is an Error there!</p>
     } else {
-      display = <ul>
-        <li>City: {this.state.cityData.display_name}</li>
-        <li>Latitude: {this.state.cityData.lat}</li>
-        <li>Longitude: {this.state.cityData.lon}</li>
+      display = <ul class="ul1">
+        <ul>City: {this.state.cityData.display_name}</ul>
+        <ul>Latitude: {this.state.cityData.lat}</ul>
+        <ul>Longitude: {this.state.cityData.lon}</ul>
+        {/* <li>Weather: {this.state.weatherData.data}</li> */}
       </ul>
     }
 
     return (
       <>
-        <h1>Explore the City</h1>
+        <h1>Explore Today</h1>
         <form onSubmit={this.handleCitySubmit}>
           <label>
             <input name='city' onChange={this.handleCityInput} placeholder="ex: Seattle"/>
@@ -82,10 +99,14 @@ class App extends React.Component {
         </form>
         {this.state.isError ? <p>{this.state.errorMessage}</p> : <ul></ul>}
         {display}
-        <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt={this.state.cityData.display_name} />
+        
+        <img className ="image" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt={this.state.cityData.display_name} />
 
-        {this.state.isError ? <Alert className="alert" variant="danger"><Alert.Heading>Oops! There is an Error!</Alert.Heading><p>{this.state.errorMsg}</p></Alert> : <p className="alert">Great Location!</p>}
+        {this.state.isError ? <Alert className="alert" variant="danger"><Alert.Heading>Oops! There is an Error!</Alert.Heading><p>{this.state.errorMsg}</p></Alert> : <p className="alert"></p>}
 
+        <article>
+        {weatherDisplay}
+          </article>
 
         </>
           
