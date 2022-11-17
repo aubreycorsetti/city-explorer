@@ -6,6 +6,7 @@ import Alert from 'react-bootstrap/Alert'
 //eslint-disable-next-line no-unused-vars
 import Apps from './Apps.css'
 import Weather from './Weather.js';
+import Movie from './Movie.js';
 
 
 
@@ -18,6 +19,7 @@ class App extends React.Component {
       city: '',
       cityData: {},
       weatherData: [],
+      movieData: [],
       isError: false,
       errorMessage: ''
     }
@@ -41,8 +43,8 @@ class App extends React.Component {
         cityData: locationInfo.data[0],
         isError: false
       }, this.handleWeather);
+      this.handleMovie();
 
-     
     }
     catch (error) {
       console.log('error: ', error);
@@ -60,6 +62,19 @@ class App extends React.Component {
 
     this.setState({
       weatherData: weatherData.data
+     
+    })
+    
+  }
+
+  handleMovie = async () => {
+    let movieURL = `${process.env.REACT_APP_SERVER}/movie?search=${this.state.city}`;
+    let movieData = await axios.get(movieURL);
+    console.log(movieURL);
+    console.log(movieData.data);
+
+    this.setState({
+      movieData: movieData.data
     })
     
   }
@@ -71,9 +86,19 @@ class App extends React.Component {
     let weatherDisplay = this.state.weatherData.map(weatherData => {
       console.log(weatherData);
       return <Weather
+      //city = {weatherData.city}
       date = {weatherData.date}
-      description = {weatherData.description}
+      description = {weatherData.fullDescription}
       />
+    });
+    console.log(this.state.movieData);
+
+    let movieDisplay = this.state.movieData.map(movieData => {
+      console.log(movieData);
+      return <Movie
+      movies = {this.state.movieData}
+      city = {this.state.searchCity}/>
+
     });
 
     let display = '';
@@ -84,6 +109,7 @@ class App extends React.Component {
         <ul>City: {this.state.cityData.display_name}</ul>
         <ul>Latitude: {this.state.cityData.lat}</ul>
         <ul>Longitude: {this.state.cityData.lon}</ul>
+
         {/* <li>Weather: {this.state.weatherData.data}</li> */}
       </ul>
     }
@@ -105,8 +131,12 @@ class App extends React.Component {
         {this.state.isError ? <Alert className="alert" variant="danger"><Alert.Heading>Oops! There is an Error!</Alert.Heading><p>{this.state.errorMsg}</p></Alert> : <p className="alert"></p>}
 
         <article>
-          <p> Weather Forecast</p>
+          <h2> Weather Forecast</h2>
         {weatherDisplay}
+          </article>
+          <article>
+            <h2>Top Movies</h2>
+          {movieDisplay}
           </article>
 
         </>

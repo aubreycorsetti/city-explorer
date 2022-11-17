@@ -12,8 +12,10 @@ class Weather extends React.Component {
 
     return (
       <>
+      <h3>{this.props.city}</h3>
         {this.props.date}
-        {this.props.description}
+        <p>{this.props.description}</p>
+        {this.props.fullDescription}
       </>
     )
 
