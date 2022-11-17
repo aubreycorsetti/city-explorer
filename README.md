@@ -36,3 +36,19 @@ Actual time needed to complete: 6 hours
 ### Partner- Dylan
 
 ![flow](flow2.png)
+
+### Partner- Aubrey
+
+![flow](flow3.png)
+
+### Time Est
+
+Name of feature: City-Explorer
+
+Estimate of time needed to complete: 5hours
+
+Start time: 1
+
+Finish time: 5
+
+Actual time needed to complete: (not done yet)
