@@ -54,7 +54,7 @@ class App extends React.Component {
   }
 
   handleWeather = async () => {
-    let url = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}`;
+    let url = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}&lon=${this.state.cityData.lon}&lat=${this.state.cityData.lat}`;
     let weatherData = await axios.get(url);
     console.log(weatherData.data)
 
@@ -80,7 +80,7 @@ class App extends React.Component {
     if(this.state.isError) {
       display=<p>Oops! There is an Error there!</p>
     } else {
-      display = <ul class="ul1">
+      display = <ul className="ul1">
         <ul>City: {this.state.cityData.display_name}</ul>
         <ul>Latitude: {this.state.cityData.lat}</ul>
         <ul>Longitude: {this.state.cityData.lon}</ul>
@@ -105,6 +105,7 @@ class App extends React.Component {
         {this.state.isError ? <Alert className="alert" variant="danger"><Alert.Heading>Oops! There is an Error!</Alert.Heading><p>{this.state.errorMsg}</p></Alert> : <p className="alert"></p>}
 
         <article>
+          <p> Weather Forecast</p>
         {weatherDisplay}
           </article>
 
