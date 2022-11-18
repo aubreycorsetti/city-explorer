@@ -22,18 +22,20 @@ class Movie extends React.Component {
             {this.props.movies.map((movie, idx) => (
               <Card key={idx}>
                 <section id="img">
+                  {movie.imgPath &&
                 <Card.Img variant="left" id={movie.title} alt={movie.title} src={movie.imgPath}/>
+                  }
                 </section>
                 <Card.Body>
-                  <Card.Text>
+                  <div>
                   <div id="title">
                     <Card.Title>{movie.title}</Card.Title>
                   </div>
                   <div id="summary">
                     <h5>Summary:</h5>
-                    <p>{movie.overview}</p>
+                    <Card.Text>{movie.overview} </Card.Text>
                   </div>
-                  </Card.Text>
+                  </div>
                   </Card.Body>
                   <ListGroup id="list-group-flush">
                     <ListGroup.Item>Rating: {movie.avgRating}</ListGroup.Item>
