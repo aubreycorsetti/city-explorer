@@ -21,7 +21,8 @@ class App extends React.Component {
       weatherData: [],
       movieData: [],
       isError: false,
-      errorMessage: ''
+      errorMessage: '',
+      showImage: false
     }
   }
 
@@ -41,7 +42,8 @@ class App extends React.Component {
       let locationInfo = await axios.get(url);
       this.setState({
         cityData: locationInfo.data[0],
-        isError: false
+        isError: false,
+        showImage: true,
       }, this.handleWeather);
       this.handleMovie();
 
@@ -83,22 +85,25 @@ class App extends React.Component {
   render() {
     //console.log(this.state.weatherData);
 
-    let weatherDisplay = this.state.weatherData.map(weatherData => {
+    let weatherDisplay = this.state.weatherData.map((weatherData, idx) => {
       console.log(weatherData);
       return <Weather
       //city = {weatherData.city}
       date = {weatherData.date}
       description = {weatherData.fullDescription}
+      key={idx}
       />
     });
     console.log(this.state.movieData);
 
-    let movieDisplay = this.state.movieData.map(movieData => {
+    let movieDisplay = this.state.movieData.map((movieData, idx) => {
       console.log(movieData);
       return <Movie
       movies = {this.state.movieData}
-      city = {this.state.searchCity}/>
-
+      city = {this.state.searchCity}
+      key={idx}
+      
+      />
     });
 
     let display = '';
@@ -125,8 +130,13 @@ class App extends React.Component {
         </form>
         {this.state.isError ? <p>{this.state.errorMessage}</p> : <ul></ul>}
         {display}
+
+        {this.state.showImage && 
         
         <img className ="image" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=15`} alt={this.state.cityData.display_name} />
+
+        }
+
 
         {this.state.isError ? <Alert className="alert" variant="danger"><Alert.Heading>Oops! There is an Error!</Alert.Heading><p>{this.state.errorMsg}</p></Alert> : <p className="alert"></p>}
 
