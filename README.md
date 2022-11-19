@@ -37,9 +37,13 @@ Actual time needed to complete: 6 hours
 
 ![flow](flow2.png)
 
-### Partner- Aubrey
+### Partner- Devon
 
 ![flow](flow3.png)
+
+### Partner- Todd
+
+![flow](flow4.png)
 
 ### Time Est
 

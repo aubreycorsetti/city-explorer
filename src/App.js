@@ -60,7 +60,7 @@ class App extends React.Component {
   handleWeather = async () => {
     let url = `${process.env.REACT_APP_SERVER}/weather?city=${this.state.city}&lon=${this.state.cityData.lon}&lat=${this.state.cityData.lat}`;
     let weatherData = await axios.get(url);
-    console.log(weatherData.data)
+    console.log(weatherData);
 
     this.setState({
       weatherData: weatherData.data
@@ -72,8 +72,8 @@ class App extends React.Component {
   handleMovie = async () => {
     let movieURL = `${process.env.REACT_APP_SERVER}/movie?search=${this.state.city}`;
     let movieData = await axios.get(movieURL);
-    console.log(movieURL);
-    console.log(movieData.data);
+    // console.log(movieURL);
+    // console.log(movieData.data);
 
     this.setState({
       movieData: movieData.data
@@ -86,7 +86,7 @@ class App extends React.Component {
     //console.log(this.state.weatherData);
 
     let weatherDisplay = this.state.weatherData.map((weatherData, idx) => {
-      console.log(weatherData);
+      // console.log(weatherData);
       return <Weather
       //city = {weatherData.city}
       date = {weatherData.date}
@@ -94,10 +94,10 @@ class App extends React.Component {
       key={idx}
       />
     });
-    console.log(this.state.movieData);
+    //console.log(this.state.movieData);
 
     let movieDisplay = this.state.movieData.map((movieData, idx) => {
-      console.log(movieData);
+      //console.log(movieData);
       return <Movie
       movies = {this.state.movieData}
       city = {this.state.searchCity}
